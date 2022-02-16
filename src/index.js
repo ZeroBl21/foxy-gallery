@@ -53,6 +53,37 @@ async function addImage(){
     registerImg(newImage);
 }
 
+// promises added and code refactoring
+// const fetchData = async() => {
+//     const response = await fetch(baseUrl)
+//     const json = await response.json()
+//     return json
+// }
+
+// const imageContainer = async() =>    {
+//     let res = await fetchData()
+    
+//     let foxImage = document.createElement("img")
+//     let container = document.createElement("div");
+
+//     Promise.resolve(res)
+//         .then(res =>  {
+//             foxImage.dataset.src = res.image;
+//             foxImage.classList.add('foxy-img');
+//             container.appendChild(foxImage);
+//         })    
+
+//     return container;
+// }
+
+// async function addImage()   {
+//     const newImage = await imageContainer();
+//     appNode.append(newImage);
+//     registerImg(newImage);
+// }
+
+
+
 function clearImages(){
     appNode.innerHTML = '';
 }
