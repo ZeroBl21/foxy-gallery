@@ -1,4 +1,7 @@
+import { registerImg } from "./lazy.js";
+
 // Navbar 
+
 
 const hideNavbarMedia = window.matchMedia("(max-width: 600px)")
 const pageTitle = document.querySelector("header .page-title");
@@ -23,30 +26,37 @@ header.classList.toggle("active", hideNavbarMedia.matches);
 //
 
 const baseUrl = "https://randomfox.ca/floof/",
-    appNode = document.querySelector('#images');
-    btnAdd = document.querySelector('#btn-fox')
+    appNode = document.querySelector('#images'),
+    btnAdd = document.querySelector('#btn-fox'),
+    btnClear = document.querySelector('#btn-clear');
 
 
 //web api
 async function fetchData() {
     const response = await fetch(baseUrl),
-        jsonResponse = await response.json();
-
-    //Se toma la imagen
-    const foxImage = document.createElement("img");
-    foxImage.src = jsonResponse.image;
+        jsonResponse = await response.json(),
+        foxImage = document.createElement("img"),
+        container = document.createElement("div");
+  
+  
+    foxImage.dataset.src = jsonResponse.image;
     foxImage.classList.add('foxy-img');
 
-    //Se crea el contenedor
-    const container = document.createElement("div");
+    container.appendChild(foxImage);
 
-    //Se Agrega la imagen al contenedor
-    container.append(foxImage);
-
-    //Se Agrega al DOM
-    console.log('Fox Added')
-    appNode.append(container)
-    
+    return container;
 }
 
-btnAdd.addEventListener('click', fetchData)
+async function addImage(){
+    const newImage = await fetchData();
+    appNode.append(newImage);
+    registerImg(newImage);
+}
+
+function clearImages(){
+    appNode.innerHTML = '';
+}
+
+
+btnAdd.addEventListener('click', addImage)
+btnClear.addEventListener('click', clearImages)

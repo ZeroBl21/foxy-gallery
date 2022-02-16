@@ -1,7 +1,5 @@
 :root {
-  --dark-blue: #00008b;
-  --light-blue: #0f67af;
-  --amarillo: #ffd602;
+  --zero-blue: #358dc7;
 
   --nav-background-color: #444;
   --hover-color: #666;
@@ -16,7 +14,7 @@ body {
 /* Header Start */
 
 header {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
   height: var(--header-height);
@@ -26,7 +24,7 @@ header {
   animation: 2.1s navbar 0.5s ease-in-out;
 }
 
-header .page-title {
+.page-title {
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -44,7 +42,7 @@ header.active .page-title {
   cursor: pointer;
 }
 
-header .page-title h1 {
+.page-title h1 {
   color: #fff;
   font-size: 1.7em;
 }
@@ -100,47 +98,57 @@ header nav .item:hover {
 /* Header End */
 
 main {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 95vw;
+  margin: 4rem auto 0;
 }
 
 .main-title {
   text-align: center;
 }
 
-/* #images{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.images-container {
   margin-top: 30px;
+  columns: 5 320px;
+  column-gap: 1rem;
 }
 
-#images .foxy-img{
-  width: 320px;
-  margin: auto;
-} */
-
-#images {
-  margin-top: 30px;
-  column-count: 3;
-  column-gap: 15px;
-}
-
-#images div {
+.images-container div {
   display: inline-block;
   width: 100%;
 }
 
-#images div .foxy-img{
+.foxy-img{
   display: block;
   width: 100%;
   border-radius: 14px;
+  margin-bottom: 1rem;
+  background-color: var(--hover-color);
+  outline: 2px solid var(--zero-blue);
 }
 
-/* Media Querys */
+.btn{
+  padding: 0.5rem;
+  border: 1px solid var(--zero-blue);
+  background-color: var(--zero-blue);
+  color: #fff;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+.btn:hover{
+  opacity: .5;
+}
+
+.btn--transparent{
+  background-color: transparent;
+  color: var(--zero-blue);
+}
+
+/* Media Query */
 
 @media (max-width: 600px) {
   header nav {
     display: none;
   }
 }
+
