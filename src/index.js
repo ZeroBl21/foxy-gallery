@@ -25,38 +25,48 @@ pageTitle.addEventListener("click", () => {
 header.classList.toggle("active", hideNavbarMedia.matches);
 //
 
-const baseUrl = "https://randomfox.ca/floof/",
-    appNode = document.querySelector('#images'),
-    btnAdd = document.querySelector('#btn-fox'),
-    btnClear = document.querySelector('#btn-clear');
+const baseUrl = "https://randomfox.ca/floof/";
+const appNode = document.querySelector('#images');
+const btnAdd = document.querySelector('#btn-fox');
+const btnClear = document.querySelector('#btn-clear');
 
 
 //web api
-async function fetchData() {
-    const response = await fetch(baseUrl),
-        jsonResponse = await response.json(),
-        foxImage = document.createElement("img"),
-        container = document.createElement("div");
-  
-  
-    foxImage.dataset.src = jsonResponse.image;
-    foxImage.classList.add('foxy-img');
-
-    container.appendChild(foxImage);
-
-    return container;
+const fetchData = async () => {
+        const response = await fetch(baseUrl);
+        const json = await response.json();
+        return json;
 }
 
-async function addImage(){
-    const newImage = await fetchData();
+const imageContainer = async () => {
+    try {
+        const res = await fetchData();
+
+        const foxImage = document.createElement("img")
+        const container = document.createElement("div");
+
+        Promise.resolve(res)
+            .then(res => {
+                foxImage.dataset.src = res.image;
+                foxImage.classList.add('foxy-img');
+                container.appendChild(foxImage);
+            })
+
+        return container;
+    } catch (e) {
+        throw new Error(e.message);
+    }
+}
+
+async function addImage() {
+    const newImage = await imageContainer();
     appNode.append(newImage);
     registerImg(newImage);
 }
 
-function clearImages(){
+function clearImages() {
     appNode.innerHTML = '';
 }
 
-
-btnAdd.addEventListener('click', addImage)
-btnClear.addEventListener('click', clearImages)
+btnAdd.addEventListener('click', addImage);
+btnClear.addEventListener('click', clearImages);
